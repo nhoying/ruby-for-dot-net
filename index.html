@@ -343,15 +343,39 @@
 						<p>
 							<ul>
 								<li class="fragment">Much like .NET Core, a lot of Ruby on Rails Commands are executed through the command line</li>
-								<li class="fragment">Typically commands are ran using either <code>rails</code> or <code>rake</code></li>
+								<li class="fragment">
+                  Typically commands are ran using either <code>rails</code> or <code>rake</code>
+                  <ul>
+                    <li class="fragment">
+                      As of Rails 5.0, the <code>rails</code> command wraps all of the <code>rake</code> commands so you can use <code>rails</code> for everything
+                    </li>
+                  </ul>
+                </li>
 							</ul>
 						</p>
 					</section>
 					<section>
-            <h2>Rails vs Rake</h2>
-            <ul>
-
-            </ul>
+            <h2>Some Useful Commands</h2>
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <pre><code data-trim data-noescape>
+                  rails new application_name
+                </code></pre>
+                Creates a new rails application
+              </div>
+              <div class="fragment fade-in-then-out">
+                <pre><code data-trim data-noescape>
+                  rails generate *
+                </code></pre>
+                Used to generate a piece of Rails code like a migration, controller, or an entire scaffold operation.
+              </div>
+              <div class="fragment fade-in">
+                <pre><code data-trim data-noescape>
+                  rails db:migrate
+                </code></pre>
+                Executes a db:migration
+              </div>
+            </div>
 					</section>
 				</section>
 				<section>
@@ -413,36 +437,33 @@
 					<section>
 						<h2>Naming Conventions and Casing</h2>
 						<p>
-							<ul>
-								<li class="fragment">
-									Rails also likes to pluralize things for you
-									<ul>
-										<li class="fragment">
-											<code>LoginUser</code> becomes: <br />
-											<code class="fragment">LoginUsers</code>
-										</li>
-										<li class="fragment">
-											<code>Person</code>	becomes: <br />
-											<code class="fragment">People</code>
-										</li>
-										<li class="fragment">
-											<code>Hardware</code> becomes: <br />
-											<code class="fragment">Hardwares</code>
-										</li>
-									</ul>
-								</li>
-							</ul>
+							
+              <div class="fragment">
+                Rails also likes to pluralize things for you
+                <ul>
+                  <li class="fragment">
+                    <code>LoginUser</code> becomes: <br />
+                    <code class="fragment">LoginUsers</code>
+                  </li>
+                  <li class="fragment">
+                    <code>Person</code>	becomes: <br />
+                    <code class="fragment">People</code>
+                  </li>
+                  <li class="fragment">
+                    <code>Hardware</code> becomes: <br />
+                    <code class="fragment">Hardwares</code>
+                  </li>
+                </ul>
+              </div>
 						</p>
 					</section>
 					<section>
 						<h2>Naming Conventions and Casing</h2>
 						<p>
-							<ul>
-								<li class="fragment">
-									You can use <code>module</code> to create namespacing
-								</li>
-							</ul>
-							<pre><code data-trim data-noescape class="fragment">
+              <div class="fragment">
+                You can use <code>module</code> to create namespacing
+              </div>
+             <pre><code data-trim data-noescape class="fragment">
 								module SomeModule do
 								  class SomeClass do
 									def some_method 
@@ -460,11 +481,10 @@
 					<section>
 						<h2>Naming Conventions and Casing</h2>
 						<p>
-							<ul>
-								<li class="fragment">
-									And you reference the path with a <code>::</code>
-								</li>
-							</ul>
+              <div class="fragment">
+                And you reference the path with a <code>::</code>
+              </div>
+
 							<pre><code data-trim data-noescape class="fragment">
 								SomeModule::SomeClass.some_method
 								SomeModule::SomeClass.some_other_method_with_parmas(param_value)
@@ -473,18 +493,168 @@
 					</section>
 				</section>
 				<section>
-					<section>
-						<h2>Declaring Methods and Blocks</h2>
-					</section>
-				</section>
+          <h2>Declaring Methods</h2>
+          <div class="r-stack">
+            <div class="fragment fade-in-then-out">
+              To declare a method you can use the <code>def</code> keyword
+              <pre><code data-trim data-noescape>
+                def a_really_cool_method(some_parameters)
+                  # some really cool code
+                end
+              </code></pre>
+            </div>
+            <div class="fragment fade-in-then-out">
+              If you don't have any parameters you can leave the <code>()</code> out
+              <pre><code data-trim data-noescape>
+                def where_were_going_we_dont_need_params
+                  # some really cool code
+                end
+              </code></pre>
+            </div>
+            <div class="fragment fade-in">
+              The same applies for when calling the method
+              <pre><code data-trim data-noescap>
+                # uses a parameter
+                parameter = "some value"
+                a_really_cool_method(parameter)
+
+                # doesn't use a parameter
+                where_were_going_we_dont_need_params
+              </code></pre>
+            </div>
+          </div>
+					
+        </section>
+        <section>
+          <h2>Blocks</h2>
+          <div class="r-stack">
+            <div class="fade-in-then-out fragment">
+              One of the most powerful things about Ruby are blocks. They are anonymous functions that can be passed into methods, kinda like a C# Lambda function.
+            </div>
+            <div class="fade-in-then-out fragment">
+              Think of the following C# code:
+              <pre><code data-trim data-noescape>
+                List<int> myList = new List<int>() [ 1, 2, 3 ];
+                
+                myList.ForEach(a => Console.WriteLine(a));
+              </code></pre>
+            </div>
+            <div class="fade-in-then-out fragment">
+              This could be written in Ruby as
+              <pre><code data-trim data-noescape>
+                my_list = [ 1, 2, 3 ]
+                
+                my_list.each | a | do
+                  puts a
+                end
+              </code></pre>
+            </div>
+            <div class="fade-in-then-out fragment">
+              If your code only takes a single line, you can also use a shorthand syntax:
+              <pre><code data-trim data-noescape>
+                my_list = [ 1, 2, 3 ]
+                
+                my_list.each {| a | puts a }
+              </code></pre>
+            </div>
+            <div class="fade-in fragment">
+              I'm just scratching the surface on blocks. There's a lot of cool stuff you can do with them!
+            </div>
+          </div>
+        </section>
 				<section>
 					<section>
-						<h2>Lambdas</h2>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Useful Equivalents</h2>
+            <h2>Useful Equivalents</h2>
+            <section>
+              <div class="fragment">
+                Linq Select
+                <pre><code data-trim data-noescape>
+                  idList = someList.Select(a => a.Id);
+                </code></pre>
+              </div>
+              <div class="fragment">
+                in Ruby
+                <pre><code data-trim data-noescape>
+                  id_list = some_list.map{ |a| a.id }
+                </code></pre>
+              </div>
+            </section>
+            <section>
+              <div class="fragment">
+                Static Method Declaration:
+                <pre><code data-trim data-noescape>
+                  public static string SomeMethod()
+                  {
+                    // C# Code
+                  }
+                </code></pre>
+              </div>
+              <div class="fragment">
+                in Ruby
+                <pre><code data-trim data-noescape>
+                  def self.some_method
+                    # Ruby Code
+                  end
+                </code></pre>
+              </div>
+            </section>
+            <section>
+              <div class="fragment">
+                Private Method Declaration:
+                <pre><code data-trim data-noescape>
+                  private string SomeMethod()
+                  {
+                    // C# Code
+                  }
+                </code></pre>
+              </div>
+              <div class="fragment">
+                in Ruby
+                <pre><code data-trim data-noescape>
+                  # Other Code in the class
+
+                  private # Everything below this line is now a private method
+
+                  def some_method
+                    # Ruby Code
+                  end
+                </code></pre>
+              </div>
+            </section>
+            <section>
+              <div class="fragment">
+                Negative if statements
+                <pre><code data-trim data-noescape>
+                  if (someValue != "match")
+                  {
+                    DoSomeCSharpThing();
+                  }
+                </code></pre>
+              </div>
+              <div class="fragment">
+                in Ruby
+                <pre><code data-trim data-noescape>
+                  do_some_ruby_thing unless someValue == 'match'
+                </code></pre>
+              </div>
+            </section>
+            <section>
+              <div class="fragment">
+                Inheriting
+                <pre><code data-trim data-noescape>
+                  public class MyClass : ParentClass
+                  {
+                  }
+                </code></pre>
+              </div>
+              <div class="fragment">
+                in Ruby
+                <pre><code data-trim data-noescape>
+                  class MyClass < ParentClass
+                  end
+                </code></pre>
+              </div>
+            </section>
 					</section>
 				</section>
 				<section>
@@ -503,12 +673,84 @@
 					</section>
 					<section>
 						<h2>Migrations and Schema</h2>
-						<p>
-							Really 
-						</p>
+            <section>
+              <p class="fragment">
+                Migrations are created from the command line.<br/>
+                This will generate a blank migration
+                <pre><code data-trim data-noescape>
+                  rails g migration MyMigration 
+                </code></pre>
+                
+              </p>
+            </section>
+            <section>
+              <p class="fragment">
+                Depending how you name your migration, you can specify the different columns on the command line as well. <br />
+
+                This will generate a migration that adds a column named part_number to the parts table.
+                <pre><code data-trim data-noescape>
+                  rails g migration AddPartNumberToParts part_number:string 
+                </code></pre>
+              </p>
+            </section>
+            <section>
+              <p class="fragment">
+                It will generate a file in the db/migrate folder called timestamp_your_migration_name.rb
+                <pre><code data-trim data-noescape>
+                  class AddPartNumberToParts < ActiveRecord::Migration[6.0]
+                    def change
+                      add_column :parts, :part_number, :string
+                      add_index :parts, :part_number
+                    end
+                  end
+                </code></pre>
+              </p>
+            </section>
+            <section>
+              <p class="fragment">
+                As part of the <i>Convention over Configuration</i> principle, Rails will automatically create the necessary primary and foreign key columns as well as created and modified timestamp columns to your table. 
+              </p>
+            </section>
 					</section>
 					<section>
-						<h2>Selecting some records</h2>
+            <h2>Working with ActiveRecord</h2>
+            <section>
+              <div class="fragment">
+                In order to access your database after creating your schema, you'll need to create a model. You can combine this with your migration with the following rails console command:
+                <pre><code data-trim data-noescape>
+                  rails g model Part part_number:string name:string
+                </code></pre>
+              </div>
+            </section>
+            <section>
+              <div class="fragment">
+                In addition to the migration, it will also create a file in your <code>app/models</code> folder.
+                <pre><code data-trim data-noescape>
+                  class Part < ApplicationRecord
+                  end
+                </code></pre>
+                <p class="fragment">
+                  Notice how there are no accessors or properties defined. This is all implicit in Ruby on Rails.
+                </p>
+              </div>
+            </section>
+            <section>
+              <p class="fragment">
+                You can select a number of ways off of the ActiveRecord model class.
+              </p>
+              <pre><code data-trim data-noescape class="fragment">
+                # Returns all records
+                Part.all
+              </code></pre>
+              <pre><code data-trim data-noescape class="fragment">
+                # retrieves the first record based on the passed criteria
+                Part.find_by(part_number: 'A-123456')
+              </code></pre>
+              <pre><code data-trim data-noescape class="fragment">
+                # retrieves a collection of records based on the passed critiera
+                Part.where(part_number: 'A-123456')
+              </code></pre>
+            </section>
 					</section>
 					<section>
 						<h2>Writing some records</h2>
