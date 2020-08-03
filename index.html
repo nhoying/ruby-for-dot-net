@@ -69,165 +69,161 @@
 				</section>
 				<section>
 					<section>
-						<h2>Why is Ruby?</h2>	
+            <h2>Why is Ruby?</h2>	
+            <h4>The Rails Doctrine</h4>
+            <h5><a href="https://rubyonrails.org/doctrine/">https://rubyonrails.org/doctrine/</a></h5>
 					</section>
-					
+        </section>
+        <section>
+          <h2>The Rails Doctrine</h2>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Optimize for programmer happiness</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">
+                  The Principle of Least Surprise
+                  <ul>
+                    <li>Behaves how you would expect it to.</li>
+                  </ul>
+                  <pre><code data-trim data-noescape class="fragment">
+                    $ irb
+                    irb(main):001:0> exit
+                    $ irb
+                    irb(main):001:0> quit
+                  </code></pre>
+                  <pre><code data-trim data-noescape class="fragment">
+                    $ python
+                    >>> exit
+                    Use exit() or Ctrl-D (i.e. EOF) to exit
+                  </code></pre>
+                </li>
+								<li class="fragment">You shouldn't have to fight with your programming language</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Convention over Configuration</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment"></li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">“You’re not a beautiful and unique snowflake”</li>
+								<li class="fragment">"There are thousands of ... decisions that just need to be made once, and if someone else can do it for you, all the better."</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>The menu is omakase</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment"></li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">Omakase (Japanese: お任せ) is a Japanese phrase, used when ordering sushi in restaurants, that means "I'll leave it up to you" </li>
+								<li class="fragment">Why spend a bunch of time deciding on frameworks and technologies when the decision can be made by experts?</li>
+                <li class="fragment">More time making the important decisions that are unique to your application</li>
+                <li class="fragment">"Substitutions are still possible, but not required"</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>No one paradigm</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment"></li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">There is no central idea behind the design of Rails</li>
+								<li class="fragment">Pick the right pattern for the job</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Exalt beautiful code</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment"></li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
-							</ul>
-						</p>
+								<li class="fragment">"Aesthetically pleasing code is a value unto itself and should be pursued with vigor."</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+              <div class="r-stack">
+                <div class="fragment fade-in-then-out">
+                  Your ugly code:
+                  <pre><code data-trim data-noescape>
+                    namespace GiftExchange.Core.Configuration
+                    {
+                        public class TurnActionConfig : EntityTypeConfiguration<TurnAction>
+                        {
+                            public TurnActionConfig()
+                            {
+                                this.ToTable("TurnAction");
+
+                                this.HasKey(t => new { t.Id });
+
+                                this.Property(t => t.Id).HasColumnName("TurnActionID");
+
+                                this.HasRequired(t => t.Player)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.PlayerId);
+
+                                this.HasRequired(t => t.Gift)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.GiftId);
+
+                                this.HasOptional(t => t.ParentTurnAction)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.ParentTurnActionID);
+                            }
+                        }
+                    }
+                  </code></pre>
+                </div>
+                <div class="fragment fade-in current-visible">
+                  vs. the code she tells you not to worry about
+                  <pre><code data-trim data-noescape>
+                    class TurnAction < ApplicationRecord
+                      belongs_to :player
+                      belongs_to :gift
+                      belongs_to :parent_turn_action
+                    end
+                  </code></pre>
+                </div>
+              </div>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Provide sharp knives</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment"></li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+                <li class="fragment">"Monkey Patching/Duck Punching is a way for a program to extend or modify supporting system software locally (affecting only the running instance of the program)"</li>
+								<li class="fragment">Despite the name of "Rails" there is nothing keeping you on them</li>
+								<li class="fragment">Override everything!</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Value integrated systems</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment"></li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">Rails encourages Monoliths</li>
+								<li class="fragment">"All the power of individually tuned and distributed applications with the ease-of-use and understanding of a single, integrated system."</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Progress over stability</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment"></li>
-								<li class="fragment">Push up a big tent</li>
+								<li class="fragment">Go fast and break things</li>
+								<li class="fragment">Make the right decision for the future, not the right decision for now</li>
+								<li class="fragment">(Do the right thing, not the right now thing)</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>The Rails Doctrine</h2>
 						<h4>Push up a big tent</h4>
 						<p>
 							<ul>
-								<li class="fragment"></li>
-								<li class="fragment">Convention over Configuration</li>
-								<li class="fragment">The menu is omakase</li>
-								<li class="fragment">No one paradigm</li>
-								<li class="fragment">Exalt beautiful code</li>
-								<li class="fragment">Provide sharp knives</li>
-								<li class="fragment">Value integrated systems</li>
-								<li class="fragment">Progress over stability</li>
-								<li class="fragment"></li>
+								<li class="fragment">Encourage disparate views</li>
+								<li class="fragment">Rails should be a melting pot of ideas</li>
 							</ul>
 						</p>
 					</section>
 					<section>
-						<h2>Nicole's Rails Doctrine</h2>
-						<h4 class="fragment">Gotta go fast</h4>
+            <h3>Nicole's Personal Tennant</h3>
+						<h4 class="fragment">Gotta Go Fast</h4>
 						<pre><code data-trim data-noescape class="fragment">
 							rails new application_name
 							rails generate scaffold BlogPost title:string contents:string
@@ -238,7 +234,6 @@
 					<h2>How is Ruby?</h2>
 					<p class="fragment">
 						Now you are asking yourself:
-						
 					</p>
 					<p class="fragment">
 						<img src="dist/images/is_it_possible_to_learn_this_power.gif">
@@ -288,7 +283,7 @@
 									Keyboard shortcuts/bindings are a pain!
 									<ul>
 										<li>
-											TODO: Link to keybinding document here
+											<a href="https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x">Make Home and End Keys Behave Like Windows on MacOS</a>
 										</li>
 									</ul>
 								</li>
@@ -308,15 +303,39 @@
 				</section>
 				<section>
 					<section>
-						<h2>Setting Up VSCode</h2>
+            <h2>Setting Up VSCode</h2>
+            <ul>
+              <li class="fragment">
+                Step 1: Download VS Code
+              </li>
+              <li class="fragment">
+                Step 2: Install VS Code
+              </li>
+              <li class="fragment">
+                Step 3 (Optional): Setup VS Code to run from the Command Line
+                <code>Ctrl-Shift-P -> Shell Command: Install 'code' command in PATH</code>
+              </li>
+            </ul>
 					</section>
 					<section>
-						<h2>Install Solargraph</h2>
+            <h2>Install Ruby Solargraph</h2>
+            <ul>
+              <li class="fragment">
+                Step 1: Install the Ruby Solargraph extension in VS Code
+              </li>
+              <li class="fragment">
+                <code>gem install Solargraph</code>
+              </li>
+            </ul>
 					</section>
 					<section>
-						<h2>Choose a Linter</h2>
+            <h2>Choose a Linter</h2>
+            <ul>
+              <li class="fragment">Depending on how your environment is setup, there's a couple options</li>
+              <li class="fragment">docker-linter</li>
+              <li class="fragment">ruby-rubocop</li>
+            </ul>
 					</section>
-
 				</section>
 				<section>
 					<section>
@@ -329,7 +348,10 @@
 						</p>
 					</section>
 					<section>
-						<h2>Rails vs Rake</h2>
+            <h2>Rails vs Rake</h2>
+            <ul>
+
+            </ul>
 					</section>
 				</section>
 				<section>
@@ -524,7 +546,20 @@
 					</section>
 				</section>
 				<section>
-					<h2>Wrapping Up</h2>
+          <h2>Wrapping Up</h2>
+          <section>
+
+          </section>
+          <section>
+            <h2>References</h2>
+            <p>
+              <ul>
+                <li><a href="https://rubyonrails.org/doctrine/">The Rails Doctrine</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Omakase">Wikipedia: Omakase</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Monkey_patch">Wikipedia: Monkey Patch</a></li>
+              </ul>
+            </p>
+          </section>
 				</section>
 			</div>
 		</div>
