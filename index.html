@@ -324,7 +324,7 @@
 						<p>
 							<ul>
 								<li class="fragment">Much like .NET Core, a lot of Ruby on Rails Commands are executed through the command line</li>
-								<li class="fragment">Typically commands are ran using either <code>rails</code> or <rake>rake</rake></li>
+								<li class="fragment">Typically commands are ran using either <code>rails</code> or <code>rake</code></li>
 							</ul>
 						</p>
 					</section>
@@ -335,56 +335,58 @@
 				<section>
 					<section>
 						<h2>Naming Conventions and Casing</h2>
-						<p>
-							<ul>
-								<li class="fragment">
-									Ruby uses snake casing
-									<ul>
-										<li class="fragment">
-											<code>login_user</code>
-										</li>
-										<li class="fragment">
-											<code>roll_dice</code>
-										</li>
-										<li class="fragment">
-											<code>create_some_really_long_method_name</code>
-										</li>
-									</ul>
-								</li>
-								<li class="fragment">
-									Even for File Names
-									<ul>
-										<li class="fragment">
-											<code>login_user.rb</code>
-										</li>
-										<li class="fragment">
-											<code>roll_dice.rb</code>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</p>
-					</section>
-					<section>
-						<h2>Naming Conventions and Casing</h2>
-						<p>
-							<ul>
-								<li class="fragment">
-									Except when it doesn't!
-									<ul>
-										<li class="fragment">
-											ClassNames: <br/>
-											<code>login_user</code>	becomes: <br />
-											<code>LoginUser</code> when you reference it as a class
-										</li>
-										<li class="fragment">
-											For Example:
-											<code>LoginUser.name</code>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</p>
+						<div class="r-stack">
+							<p>
+								<ul class="fragment fade-in-then-out">
+									<li>
+										Ruby uses snake casing
+										<ul>
+											<li>
+												<code>login_user</code>
+											</li>
+											<li>
+												<code>roll_dice</code>
+											</li>
+											<li>
+												<code>create_some_really_long_method_name</code>
+											</li>
+										</ul>
+									</li>
+									<li>
+										Even for File Names
+										<ul>
+											<li>
+												<code>login_user.rb</code>
+											</li>
+											<li>
+												<code>roll_dice.rb</code>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fragment fade-in current-visible">
+									<li>
+										Except when it doesn't!
+										<ul>
+											<li>
+												ClassNames: <br/>
+												<code>login_user</code>	becomes: <br />
+												<code>LoginUser</code> when you reference it as a class
+											</li>
+											<li>
+												For Example:
+												<code>LoginUser.name</code>
+											</li>
+											<li>
+												Or When you define a class:
+												<code>class LoginUser</code>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</p>
+						</div>
+						
 					</section>
 					<section>
 						<h2>Naming Conventions and Casing</h2>
@@ -408,6 +410,43 @@
 									</ul>
 								</li>
 							</ul>
+						</p>
+					</section>
+					<section>
+						<h2>Naming Conventions and Casing</h2>
+						<p>
+							<ul>
+								<li class="fragment">
+									You can use <code>module</code> to create namespacing
+								</li>
+							</ul>
+							<pre><code data-trim data-noescape class="fragment">
+								module SomeModule do
+								  class SomeClass do
+									def some_method 
+										# put your ruby code here!!!
+									end
+
+									def some_other_method_with_params (param_a)
+										# put some more ruby code here!!!
+									end
+								  end
+								end
+							</code></pre>
+						</p>
+					</section>
+					<section>
+						<h2>Naming Conventions and Casing</h2>
+						<p>
+							<ul>
+								<li class="fragment">
+									And you reference the path with a <code>::</code>
+								</li>
+							</ul>
+							<pre><code data-trim data-noescape class="fragment">
+								SomeModule::SomeClass.some_method
+								SomeModule::SomeClass.some_other_method_with_parmas(param_value)
+							</code></pre>
 						</p>
 					</section>
 				</section>
@@ -446,6 +485,46 @@
 							Really 
 						</p>
 					</section>
+					<section>
+						<h2>Selecting some records</h2>
+					</section>
+					<section>
+						<h2>Writing some records</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>The Rails MVC Engine</h2>
+					</section>
+					<section>
+						<h2>Routing</h2>
+					</section>
+					<section>
+						<h2>Controllers</h2>
+					</section>
+					<section>
+						<h2>Views</h2>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Testing and RSpec</h2>
+					</section>
+					<section>
+						<h2>The <code>describe</code> block</h2>
+					</section>
+					<section>
+						<h2>The <code>context</code> block</h2>
+					</section>
+					<section>
+						<h2>The <code>it</code> block</h2>
+					</section>
+					<section>
+						<h2>Mocking methods with the <code>allow</code> and <code>let</code></h2>
+					</section>
+				</section>
+				<section>
+					<h2>Wrapping Up</h2>
 				</section>
 			</div>
 		</div>
