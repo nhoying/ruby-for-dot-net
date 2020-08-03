@@ -584,6 +584,33 @@
             </div>
           </div>
         </section>
+        <section>
+          <h3>Symbols</h3>
+          <section>
+            <small class="fragment">From <a href="https://www.rubyguides.com/2018/02/ruby-symbols/">Ruby Guides</a></small>
+            <ul>
+              <li class="fragment">Some people confuse symbols with variables...</li>
+              <li class="fragment">... but really a symbol is more like a string</li>
+              <li class="fragment">A string is data</li>
+              <li class="fragment">A symbol is an identifier</li>
+            </ul>
+            <small class="fragment">Symbols are your magic string replacement!</small>
+          </section>
+          <section>
+            <small>
+              One of the more common use cases is to represent method and instance variable names
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              MyClass.send(:my_method)
+
+              my_hash = 
+              {
+                some_key: 'some value',
+                some_other_key: 'some other value'
+              }
+            </code></pre>
+          </section>
+        </section>
 				<section>
           <h3>Useful Equivalents</h3>
           <section>
@@ -639,6 +666,20 @@
                 def some_method
                   # Ruby Code
                 end
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Calling a private method from outside the class:
+              <pre><code data-trim data-noescape>
+                404: File Not found
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                MyMethod.send(:my_private_method)
               </code></pre>
             </div>
           </section>
@@ -778,19 +819,119 @@
               Part.where(part_number: 'A-123456')
             </code></pre>
           </section>
+          <section>
+            <p class="fragment">
+              There are also a number of ways you can write to the database.
+            </p>
+            <pre><code data-trim data-noescape class="fragment">
+              # Creates a record
+              Part.create(part_number: 'A-123456', name: 'Small Widget')
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # Update a record
+              part.update(name: 'Smaller Widget')
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # You can also manipulate the returned Part object and call save on it
+              part.name = 'Smaller Widget'
+              part.save
+            </code></pre>
+          </section>
 				</section>
 				<section>
 					<section>
-						<h3>The Rails MVC Engine</h3>
-					</section>
+            <h3>The Rails MVC Engine</h3>
+            <small class="fragment">
+              Thankfully, there is not a whole lot of difference between ASP.NET and Ruby on Rails's implementation of the MVC (model/view/controller architecture). There are still controllers. There are still views. There are still models.
+            </small>
+          </section>
+        </section>
+        <section>
+          <h4>Routing</h4>
 					<section>
-						<h3>Routing</h3>
-					</section>
+            <small class="fragment">
+              Routing is configured in the <code>config/routes.rb</code> file
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              Rails.application.routes.draw do
+                root 'landingpage#home'
+                resources :hardwares, path: 'hardware'
+                resources :overviews, only: [:show, :update, :destroy]
+                # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+              end
+            </code></pre>
+          </section>
+          <section>
+            <small class="fragment">
+              Resource routing allows us to quickly declare common routes for a given controller.
+              <ul>
+                <li class="fragment">index</li>
+                <li class="fragment">show</li>
+                <li class="fragment">new</li>
+                <li class="fragment">edit</li>
+                <li class="fragment">create</li>
+                <li class="fragment">update</li>
+                <li class="fragment">destroy</li>
+              </ul>
+            </small>
+            <small class="fragment">You can use the <code>only</code> keyword to limit the available routes</small>
+          </section>
+        </section>
+        <section>
+          <h4>Controllers</h4>
 					<section>
-						<h3>Controllers</h3>
-					</section>
+            <small class="fragment">
+              Controllers work in much the same way as they do in ASP.NET
+              
+            </small>
+            <small class="fragment">There are some key differences though!</small>
+          </section>
+          <section>
+            <small class="fragment">
+              Much of the boilerplate work for a controller has been taken care of for you.
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              // aspnetCore
+              public IActionResult<SomeModel> New()
+              {
+                return View();
+              }
+              
+              # Ruby on Rails
+              def new
+              end
+            </code></pre>
+          </section>
+          <section>
+            <small class="fragment">Parameters are passed through an object instead of being defined as parameters</small>
+            <pre><code data-trim data-noescape class="fragment">
+              // aspnetCore
+              public IActionResult<SomeModel> Show(int id)
+              {
+                model = GetModel(id);
+                return View();
+              }
+              
+              # Ruby on Rails
+              def show
+                SomeModel.find(id: params[:id])
+              end
+            </code></pre>
+          </section>
+        </section>
+        <section>
 					<section>
-						<h3>Views</h3>
+            <h3>Views</h3>
+            <small class="fragment">
+              Views also work in much the same way as they do in ASP.NET. The biggest difference is syntax. 
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              @* C# Razor Syntax *@
+              <h2>@model.Title</h2>
+              
+              # Rails View Syntax
+              <h2><%= @model.title %></h2>
+            </code></pre>
 					</section>
 				</section>
 				<section>
@@ -945,16 +1086,27 @@
 				<section>
           <h3>Wrapping Up</h3>
           <section>
-
-          </section>
-          <section>
-            <h3>References</h3>
+            <h4>References</h4>
             <p>
               <ul>
                 <li><a href="https://rubyonrails.org/doctrine/">The Rails Doctrine</a></li>
                 <li><a href="https://en.wikipedia.org/wiki/Omakase">Wikipedia: Omakase</a></li>
                 <li><a href="https://en.wikipedia.org/wiki/Monkey_patch">Wikipedia: Monkey Patch</a></li>
+                <li><a href="https://www.rubyguides.com/2018/02/ruby-symbols/">Ruby Guides (Symbols)</a></li>
               </ul>
+            </p>
+          </section>
+          <section>
+            <h4>Special Thanks</h4>
+            <ul>
+              <li>Zack Lowery for creating the presentation framework and sharing it with me</li>
+              <li>Terry Welsh for reviewing the presentation and providing some much needed feedback</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Questions</h4>
+            <p>
+              I'll now try to take and answer any questions you might have. Although remember: I'm not an expert!
             </p>
           </section>
 				</section>
