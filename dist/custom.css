@@ -24,7 +24,7 @@
 .reveal section table.vertical td,
 .reveal section table.vertical th {
     border-bottom: none;
-    border-right: 1px solid currentColor;
+    border-right: none;
     border-top: none;
 }
 
