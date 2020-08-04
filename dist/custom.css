@@ -1,0 +1,90 @@
+.reveal section .block-center {
+    margin: auto;
+}
+
+.reveal section .flex {
+    display: flex;
+}
+
+.reveal section .inline {
+    display: inline;
+}
+
+.reveal section .text-center {
+    text-align: center;
+}
+
+.reveal section img.plain {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.reveal section table.vertical td,
+.reveal section table.vertical th {
+    border-bottom: none;
+    border-right: none;
+    border-top: none;
+}
+
+.reveal section table.vertical td:last-child,
+.reveal section table.vertical th:last-child {
+    border-bottom: none;
+    border-right: none;
+    border-top: none;
+}
+
+.reveal section table.vertical-align-top td {
+    vertical-align: top;
+}
+
+.reveal section .flex-50 * {
+    height: auto;
+    max-width: 50%;
+    margin: 15px;
+}
+
+.reveal section .row {
+    display: table-row;
+}
+
+.reveal section .row > * {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.reveal section img.qr-code {
+    margin: 15px auto;
+}
+
+.reveal section.related-technologies table img {
+    border: 0;
+    margin: 0;
+    padding: 2px;
+    max-height: 3rem;
+    vertical-align: middle;
+}
+
+.reveal section.related-technologies table img.saltstack {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.reveal section.utilized-technologies img {
+    max-width: 50%;
+}
+
+.reveal section.i-have-a-lot-of-hardware table {
+    font-size: 1.5rem;
+}
+
+.reveal section.i-have-a-lot-of-hardware table img {
+    display: inline;
+    max-height: 1.5rem;
+    vertical-align: middle;
+}
+
+.reveal section.supporting-windows-in-the-inventory-1 img {
+    margin: auto;
+    max-height: 20rem;
+}

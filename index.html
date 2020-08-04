@@ -4,11 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Ruby Eye for the .NET Guy</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<link rel="stylesheet" href="dist/theme/leading-edje-dark.css" id="theme">
+		<link rel="stylesheet" href="dist/custom.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
@@ -16,8 +17,1099 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section class="slide-title">
+					<h1>Ruby Eye for the .NET Guy</h1>
+					<p>
+						<small>
+							Presented by
+							<a href="https://github.com/nhoying/">Nicole Hoying</a>
+							<br>
+							on August 4th, 2020 at
+							<a href="https://leadingedje.com/">Leading EDJE</a>
+						</small>
+					</p>
+					<p>
+						<small>
+							Available online at
+							<a href="https://github.com/nhoying/ruby-for-dot-net">
+								https://github.com/nhoying/ruby-for-dot-net
+							</a>
+							<br>
+							Press your spacebar to navigate forward. &raquo;
+						</small>
+					</p>				
+				</section>
+				<section>
+					<h3>Before we get started..</h3>
+					<ul>
+						<li class="fragment">I am not a Ruby Expert!</li>
+						<li class="fragment">This is not Gospel</li>
+						<li class="fragment">I'm gonna use Ruby and Ruby on Rails interchangeably, probably.</li>
+						<li class="fragment">Embark on your own journey of self-discovery</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+            <h3>Understanding Ruby and Ruby on Rails</h3>
+            <small>There is a method to the madness</small>
+            <h4>The Rails Doctrine</h4>
+            <h5><a href="https://rubyonrails.org/doctrine/">https://rubyonrails.org/doctrine/</a></h5>
+					</section>
+        </section>
+        <section>
+          <h3>The Rails Doctrine</h3>
+					<section>
+						<h4>Optimize for programmer happiness</h4>
+						<p>
+							<ul>
+								<li class="fragment">
+                  The Principle of Least Surprise
+                  <ul>
+                    <li>Behaves how you would expect it to.</li>
+                  </ul>
+                  <pre><code data-trim data-noescape class="fragment">
+                    $ irb
+                    irb(main):001:0> exit
+                    $ irb
+                    irb(main):001:0> quit
+                  </code></pre>
+                  <pre><code data-trim data-noescape class="fragment">
+                    $ python
+                    >>> exit
+                    Use exit() or Ctrl-D (i.e. EOF) to exit
+                  </code></pre>
+                </li>
+								<li class="fragment">You shouldn't have to fight with your programming language</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>Convention over Configuration</h4>
+						<p>
+							<ul>
+								<li class="fragment">“You’re not a beautiful and unique snowflake”</li>
+								<li class="fragment">"There are thousands of ... decisions that just need to be made once, and if someone else can do it for you, all the better."</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>The menu is omakase</h4>
+						<p>
+							<ul>
+								<li class="fragment">Omakase (Japanese: お任せ) is a Japanese phrase, used when ordering sushi in restaurants, that means "I'll leave it up to you" </li>
+								<li class="fragment">Why spend a bunch of time deciding on frameworks and technologies when the decision can be made by experts?</li>
+                <li class="fragment">More time making the important decisions that are unique to your application</li>
+                <li class="fragment">"Substitutions are still possible, but not required"</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>No one paradigm</h4>
+						<p>
+							<ul>
+								<li class="fragment">There is no central idea behind the design of Rails</li>
+								<li class="fragment">Pick the right pattern for the job</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>Exalt beautiful code</h4>
+						<p>
+							<ul>
+								<li class="fragment">"Aesthetically pleasing code is a value unto itself and should be pursued with vigor."</li>
+              </ul>
+            </p>
+          </section>
+          <section>
+              <div class="r-stack">
+                <div class="fragment fade-in-then-out">
+                  Your ugly code:
+                  <pre><code data-trim data-noescape>
+                    namespace GiftExchange.Core.Configuration
+                    {
+                        public class TurnActionConfig : EntityTypeConfiguration<TurnAction>
+                        {
+                            public TurnActionConfig()
+                            {
+                                this.ToTable("TurnAction");
+
+                                this.HasKey(t => new { t.Id });
+
+                                this.Property(t => t.Id).HasColumnName("TurnActionID");
+
+                                this.HasRequired(t => t.Player)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.PlayerId);
+
+                                this.HasRequired(t => t.Gift)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.GiftId);
+
+                                this.HasOptional(t => t.ParentTurnAction)
+                                    .WithMany()
+                                    .HasForeignKey(t => t.ParentTurnActionID);
+                            }
+                        }
+                    }
+                  </code></pre>
+                </div>
+                <div class="fragment fade-in current-visible">
+                  vs. the code she tells you not to worry about
+                  <pre><code data-trim data-noescape>
+                    class TurnAction < ApplicationRecord
+                      belongs_to :player
+                      belongs_to :gift
+                      belongs_to :parent_turn_action
+                    end
+                  </code></pre>
+                </div>
+              </div>
+					</section>
+					<section>
+						<h4>Provide sharp knives</h4>
+						<p>
+							<ul>
+                <li class="fragment">"Monkey Patching/Duck Punching is a way for a program to extend or modify supporting system software locally (affecting only the running instance of the program)"</li>
+								<li class="fragment">Despite the name of "Rails" there is nothing keeping you on them</li>
+								<li class="fragment">Override everything!</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>Value integrated systems</h4>
+						<p>
+							<ul>
+								<li class="fragment">Rails encourages Monoliths</li>
+								<li class="fragment">"All the power of individually tuned and distributed applications with the ease-of-use and understanding of a single, integrated system."</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>Progress over stability</h4>
+						<p>
+							<ul>
+								<li class="fragment">Go fast and break things</li>
+								<li class="fragment">Make the right decision for the future, not the right decision for now</li>
+								<li class="fragment">(Do the right thing, not the right now thing)</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h4>Push up a big tent</h4>
+						<p>
+							<ul>
+								<li class="fragment">Encourage disparate views</li>
+								<li class="fragment">Rails should be a melting pot of ideas</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+            <h3>Nicole's Personal Tennant</h3>
+						<h4 class="fragment">Gotta Go Fast</h4>
+						<pre><code data-trim data-noescape class="fragment">
+							rails new application_name
+							rails generate scaffold BlogPost title:string contents:string
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<p>
+						Now you are asking yourself:
+					</p>
+					<p class="fragment">
+						<img src="dist/images/is_it_possible_to_learn_this_power.gif">
+					</p>
+        </section>
+        <section>
+          <h3>Some Major Differences between Ruby and C#</h3>
+          <ul>
+            <li class="fragment">
+              Ruby is an interpreted language
+            </li>
+            <li class="fragment">
+              In Ruby <em>everything</em> is an object
+            </li>
+            <li class="fragment">
+              In Ruby everything uses duck typing
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Wait, so what is Ruby On Rails?</h3>
+          <p>
+            <ul>
+              <li class="fragment">Rails is a framework</li>
+              <ul>
+                <li class="fragment">Rails is to Ruby as ASP.NET is to C#</li>
+              </ul>
+            </ul>
+          </p>	
+        </section>
+				<section>
+					<h3>Getting Started with your Environment</h3>
+				</section>
+				<section>
+					<section>
+						<h3>Choose Your Fighter</h3>
+						<table class="vertical">
+							<tbody>
+								<tr>
+									<td class="fragment">
+										<p><img src="dist/images/windows.jpg"></p>
+										<p>Windows</p>
+                  </td>
+									<td class="fragment">
+										<p><img src="dist/images/macos.jpg"></p>
+										<p>Mac OS</p>
+                  </td>
+									<td class="fragment">
+										<p><img src="dist/images/linux.jpg"></p>
+										<p>Linux</p>
+                  </td>
+                  <td class="fragment">
+										<p><img src="dist/images/docker.jpg"></p>
+										<p>Docker</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h3>Windows</h3>
+						<p>
+							<ul>
+								<li class="fragment">It's what you're used to.</li>
+								<li class="fragment">Some Rails incompatibility at last check</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Mac OS</h3>
+						<p>
+							<ul>
+								<li class="fragment">Where I do all my Ruby on Rails Development</li>
+								<li class="fragment">Cost of entry. Buying new hardware. Do you really want to support Apple?</li>
+								<li class="fragment">
+									Keyboard shortcuts/bindings are a pain!
+									<ul>
+										<li>
+											<a href="https://damieng.com/blog/2015/04/24/make-home-end-keys-behave-like-windows-on-mac-os-x">Make Home and End Keys Behave Like Windows on MacOS</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>Linux</h3>
+						<p>
+							<ul>
+								<li class="fragment">Can run it in a VM of Windows (See Ubuntu/Linux for Windows)</li>
+								<li class="fragment">It's free!</li>
+								<li class="fragment">¯\_(ツ)_/¯</li>
+							</ul>
+						</p>
+          </section>
+          <section>
+						<h3>
+              Docker
+            </h3>
+						<p>
+							<ul>
+								<li class="fragment">Can run on any platform and can expect it to behave well</li>
+								<li class="fragment">It's free!</li>
+								<li class="fragment">Docker is awesome. You should always pick Docker.</li>
+							</ul>
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+            <h3>Setting Up VSCode</h3>
+            <ul>
+              <li class="fragment">
+                Step 1: Download VS Code
+              </li>
+              <li class="fragment">
+                Step 2: Install VS Code
+              </li>
+              <li class="fragment">
+                Step 3 (Optional): Setup VS Code to run from the Command Line
+                <code>Ctrl-Shift-P -> Shell Command: Install 'code' command in PATH</code>
+              </li>
+            </ul>
+					</section>
+					<section>
+            <h3>Install Ruby Solargraph</h3>
+            <ul>
+              <li class="fragment">
+                Step 1: Install the Ruby Solargraph extension in VS Code
+              </li>
+              <li class="fragment">
+                <code>gem install Solargraph</code>
+              </li>
+            </ul>
+					</section>
+					<section>
+            <h3>Choose a Linter</h3>
+            <ul>
+              <li class="fragment">Depending on how your environment is setup, there's a couple options</li>
+              <li class="fragment">docker-linter</li>
+              <li class="fragment">ruby-rubocop</li>
+            </ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>The Command Line</h3>
+						<p>
+							<ul>
+								<li class="fragment">Much like .NET Core, a lot of Ruby on Rails Commands are executed through the command line</li>
+								<li class="fragment">
+                  Typically commands are ran using either <code>rails</code> or <code>rake</code>
+                  <ul>
+                    <li class="fragment">
+                      As of Rails 5.0, the <code>rails</code> command wraps all of the <code>rake</code> commands so you can use <code>rails</code> for everything
+                    </li>
+                  </ul>
+                </li>
+							</ul>
+						</p>
+					</section>
+					<section>
+            <h3>Some Useful Commands</h3>
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <pre><code data-trim data-noescape>
+                  rails new application_name
+                </code></pre>
+                Creates a new rails application
+              </div>
+              <div class="fragment fade-in-then-out">
+                <pre><code data-trim data-noescape>
+                  rails generate *
+                </code></pre>
+                Used to generate a piece of Rails code like a migration, controller, or an entire scaffold operation.
+              </div>
+              <div class="fragment fade-in">
+                <pre><code data-trim data-noescape>
+                  rails db:migrate
+                </code></pre>
+                Executes a db:migration
+              </div>
+            </div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Naming Conventions and Casing</h3>
+						<div class="r-stack">
+							<p>
+								<ul class="fragment fade-in-then-out">
+									<li>
+										Ruby uses snake casing
+										<ul>
+											<li>
+												<code>login_user</code>
+											</li>
+											<li>
+												<code>roll_dice</code>
+											</li>
+											<li>
+												<code>create_some_really_long_method_name</code>
+											</li>
+										</ul>
+									</li>
+									<li>
+										Even for File Names
+										<ul>
+											<li>
+												<code>login_user.rb</code>
+											</li>
+											<li>
+												<code>roll_dice.rb</code>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								<ul class="fragment fade-in current-visible">
+									<li>
+										Except when it doesn't!
+										<ul>
+											<li>
+												ClassNames: <br/>
+												<code>login_user</code>	becomes: <br />
+												<code>LoginUser</code> when you reference it as a class
+											</li>
+											<li>
+												For Example:
+												<code>LoginUser.name</code>
+											</li>
+											<li>
+												Or When you define a class:
+												<code>class LoginUser</code>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</p>
+						</div>
+						
+					</section>
+					<section>
+						<h3>Naming Conventions and Casing</h3>
+						<p>
+							
+              <div class="fragment">
+                Rails also likes to pluralize things for you
+                <ul>
+                  <li class="fragment">
+                    <code>LoginUser</code> becomes: <br />
+                    <code class="fragment">LoginUsers</code>
+                  </li>
+                  <li class="fragment">
+                    <code>Person</code>	becomes: <br />
+                    <code class="fragment">People</code>
+                  </li>
+                  <li class="fragment">
+                    <code>Hardware</code> becomes: <br />
+                    <code class="fragment">Hardwares</code>
+                  </li>
+                </ul>
+              </div>
+						</p>
+					</section>
+					<section>
+						<h3>Naming Conventions and Casing</h3>
+						<p>
+              <div class="fragment">
+                You can use <code>module</code> to create namespacing
+              </div>
+             <pre><code data-trim data-noescape class="fragment">
+								module SomeModule do
+								  class SomeClass do
+									def some_method 
+										# put your ruby code here!!!
+									end
+
+									def some_other_method_with_params (param_a)
+										# put some more ruby code here!!!
+									end
+								  end
+								end
+							</code></pre>
+						</p>
+					</section>
+					<section>
+						<h3>Naming Conventions and Casing</h3>
+						<p>
+              <div class="fragment">
+                And you reference the path with a <code>::</code>
+              </div>
+
+							<pre><code data-trim data-noescape class="fragment">
+								SomeModule::SomeClass.some_method
+								SomeModule::SomeClass.some_other_method_with_parmas(param_value)
+							</code></pre>
+						</p>
+					</section>
+				</section>
+				<section>
+          <h3>Declaring Methods</h3>
+          <div class="r-stack">
+            <div class="fragment fade-in-then-out">
+              To declare a method you can use the <code>def</code> keyword
+              <pre><code data-trim data-noescape>
+                def a_really_cool_method(some_parameters)
+                  # some really cool code
+                end
+              </code></pre>
+            </div>
+            <div class="fragment fade-in-then-out">
+              If you don't have any parameters you can leave the <code>()</code> out
+              <pre><code data-trim data-noescape>
+                def where_were_going_we_dont_need_params
+                  # some really cool code
+                end
+              </code></pre>
+            </div>
+            <div class="fragment fade-in">
+              The same applies for when calling the method
+              <pre><code data-trim data-noescap>
+                # uses a parameter
+                parameter = "some value"
+                a_really_cool_method(parameter)
+
+                # doesn't use a parameter
+                where_were_going_we_dont_need_params
+              </code></pre>
+            </div>
+          </div>
+					
+        </section>
+        <section>
+          <h3>Blocks</h3>
+          <div class="r-stack">
+            <div class="fade-in-then-out fragment">
+              One of the most powerful things about Ruby are blocks. They are anonymous functions that can be passed into methods, kinda like a C# Lambda function.
+            </div>
+            <div class="fade-in-then-out fragment">
+              Think of the following C# code:
+              <pre><code data-trim data-noescape>
+                List<int> myList = new List<int>() [ 1, 2, 3 ];
+                
+                myList.ForEach(a => Console.WriteLine(a));
+              </code></pre>
+            </div>
+            <div class="fade-in-then-out fragment">
+              This could be written in Ruby as
+              <pre><code data-trim data-noescape>
+                my_list = [ 1, 2, 3 ]
+                
+                my_list.each | a | do
+                  puts a
+                end
+              </code></pre>
+            </div>
+            <div class="fade-in-then-out fragment">
+              If your code only takes a single line, you can also use a shorthand syntax:
+              <pre><code data-trim data-noescape>
+                my_list = [ 1, 2, 3 ]
+                
+                my_list.each {| a | puts a }
+              </code></pre>
+            </div>
+            <div class="fade-in fragment">
+              I'm just scratching the surface on blocks. There's a lot of cool stuff you can do with them!
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>Symbols</h3>
+          <section>
+            <small class="fragment">From <a href="https://www.rubyguides.com/2018/02/ruby-symbols/">Ruby Guides</a></small>
+            <ul>
+              <li class="fragment">Some people confuse symbols with variables...</li>
+              <li class="fragment">... but really a symbol is more like a string</li>
+              <li class="fragment">A string is data</li>
+              <li class="fragment">A symbol is an identifier</li>
+            </ul>
+            <small class="fragment">Symbols are your magic string replacement!</small>
+          </section>
+          <section>
+            <small>
+              One of the more common use cases is to represent method and instance variable names
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              MyClass.send(:my_method)
+
+              my_hash = 
+              {
+                some_key: 'some value',
+                some_other_key: 'some other value'
+              }
+            </code></pre>
+          </section>
+        </section>
+				<section>
+          <h3>Useful Equivalents</h3>
+          <section>
+            <div class="fragment">
+              Linq Select
+              <pre><code data-trim data-noescape>
+                idList = someList.Select(a => a.Id);
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                id_list = some_list.map{ |a| a.id }
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Static Method Declaration:
+              <pre><code data-trim data-noescape>
+                public static string SomeMethod()
+                {
+                  // C# Code
+                }
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                def self.some_method
+                  # Ruby Code
+                end
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Private Method Declaration:
+              <pre><code data-trim data-noescape>
+                private string SomeMethod()
+                {
+                  // C# Code
+                }
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                # Other Code in the class
+
+                private # Everything below this line is now a private method
+
+                def some_method
+                  # Ruby Code
+                end
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Calling a private method from outside the class:
+              <pre><code data-trim data-noescape>
+                404: File Not found
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                MyMethod.send(:my_private_method)
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Negative if statements
+              <pre><code data-trim data-noescape>
+                if (someValue != "match")
+                {
+                  DoSomeCSharpThing();
+                }
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                do_some_ruby_thing unless someValue == 'match'
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              Inheriting
+              <pre><code data-trim data-noescape>
+                public class MyClass : ParentClass
+                {
+                }
+              </code></pre>
+            </div>
+            <div class="fragment">
+              in Ruby
+              <pre><code data-trim data-noescape>
+                class MyClass < ParentClass
+                end
+              </code></pre>
+            </div>
+          </section>
+        
+				</section>
+				<section>
+          <h3>ActiveRecord: The Ruby on Rails ORM</h3>
+          <p>
+            <ul>
+              <li class="fragment">
+                Oh God I hope this isn't like Entity Framework
+              </li>
+              <li class="fragment">
+                It is! But less bad I think?
+              </li>
+            </ul>
+          </p>
+        </section>
+        
+        <section>
+          <h3>Migrations and Schema</h3>
+          <section>
+            <p class="fragment">
+              Migrations are created from the command line.<br/>
+            </p>
+            <p class="fragment">
+              <small>This will generate a blank migration</small>
+            </p>              
+            <p>
+              <pre><code data-trim data-noescape  class="fragment">
+                rails g migration MyMigration 
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <p class="fragment">
+              Depending how you name your migration, you can specify the different columns on the command line as well. <br />
+            </p>
+            <p class="fragment">
+              <small>This will generate a migration that adds a column named part_number to the parts table.</small>
+            </p>
+            <p class="fragment">
+              <pre><code data-trim data-noescape  class="fragment">
+                rails g migration AddPartNumberToParts part_number:string 
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <p class="fragment">
+              It will generate a file in the db/migrate folder called timestamp_your_migration_name.rb
+              <pre><code data-trim data-noescape class="fragment">
+                class AddPartNumberToParts < ActiveRecord::Migration[6.0]
+                  def change
+                    add_column :parts, :part_number, :string
+                    add_index :parts, :part_number
+                  end
+                end
+              </code></pre>
+            </p>
+          </section>
+          <section>
+            <p class="fragment">
+              As part of the <i>Convention over Configuration</i> principle, Rails will automatically create the necessary primary and foreign key columns as well as created and modified timestamp columns to your table. 
+            </p>
+          </section>
+        </section>
+        <section>
+          <h3>Working with ActiveRecord</h3>
+          <section>
+            <div class="fragment">
+              In order to access your database after creating your schema, you'll need to create a model. You can combine this with your migration with the following rails console command:
+              <pre><code data-trim data-noescape>
+                rails g model Part part_number:string name:string
+              </code></pre>
+            </div>
+          </section>
+          <section>
+            <div class="fragment">
+              In addition to the migration, it will also create a file in your <code>app/models</code> folder.
+              <pre><code data-trim data-noescape>
+                class Part < ApplicationRecord
+                end
+              </code></pre>
+              <p class="fragment">
+                Notice how there are no accessors or properties defined. This is all implicit in Ruby on Rails.
+              </p>
+            </div>
+          </section>
+          <section>
+            <p class="fragment">
+              You can select a number of ways off of the ActiveRecord model class.
+            </p>
+            <pre><code data-trim data-noescape class="fragment">
+              # Returns all records
+              Part.all
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # retrieves the first record based on the passed criteria
+              Part.find_by(part_number: 'A-123456')
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # retrieves a collection of records based on the passed critiera
+              Part.where(part_number: 'A-123456')
+            </code></pre>
+          </section>
+          <section>
+            <p class="fragment">
+              There are also a number of ways you can write to the database.
+            </p>
+            <pre><code data-trim data-noescape class="fragment">
+              # Creates a record
+              Part.create(part_number: 'A-123456', name: 'Small Widget')
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # Update a record
+              part.update(name: 'Smaller Widget')
+            </code></pre>
+            <pre><code data-trim data-noescape class="fragment">
+              # You can also manipulate the returned Part object and call save on it
+              part.name = 'Smaller Widget'
+              part.save
+            </code></pre>
+          </section>
+				</section>
+				<section>
+					<section>
+            <h3>The Rails MVC Engine</h3>
+            <small class="fragment">
+              Thankfully, there is not a whole lot of difference between ASP.NET and Ruby on Rails's implementation of the MVC (model/view/controller architecture). There are still controllers. There are still views. There are still models.
+            </small>
+          </section>
+        </section>
+        <section>
+          <h4>Routing</h4>
+					<section>
+            <small class="fragment">
+              Routing is configured in the <code>config/routes.rb</code> file
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              Rails.application.routes.draw do
+                root 'landingpage#home'
+                resources :hardwares, path: 'hardware'
+                resources :overviews, only: [:show, :update, :destroy]
+                # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+              end
+            </code></pre>
+          </section>
+          <section>
+            <small class="fragment">
+              Resource routing allows us to quickly declare common routes for a given controller.
+              <ul>
+                <li class="fragment">index</li>
+                <li class="fragment">show</li>
+                <li class="fragment">new</li>
+                <li class="fragment">edit</li>
+                <li class="fragment">create</li>
+                <li class="fragment">update</li>
+                <li class="fragment">destroy</li>
+              </ul>
+            </small>
+            <small class="fragment">You can use the <code>only</code> keyword to limit the available routes</small>
+          </section>
+        </section>
+        <section>
+          <h4>Controllers</h4>
+					<section>
+            <small class="fragment">
+              Controllers work in much the same way as they do in ASP.NET
+              
+            </small>
+            <small class="fragment">There are some key differences though!</small>
+          </section>
+          <section>
+            <small class="fragment">
+              Much of the boilerplate work for a controller has been taken care of for you.
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              // aspnetCore
+              public IActionResult<SomeModel> New()
+              {
+                return View();
+              }
+              
+              # Ruby on Rails
+              def new
+              end
+            </code></pre>
+          </section>
+          <section>
+            <small class="fragment">Parameters are passed through an object instead of being defined as parameters</small>
+            <pre><code data-trim data-noescape class="fragment">
+              // aspnetCore
+              public IActionResult<SomeModel> Show(int id)
+              {
+                model = GetModel(id);
+                return View(model);
+              }
+              
+              # Ruby on Rails
+              def show
+                SomeModel.find(id: params[:id])
+              end
+            </code></pre>
+          </section>
+        </section>
+        <section>
+					<section>
+            <h3>Views</h3>
+            <small class="fragment">
+              Views also work in much the same way as they do in ASP.NET. The biggest difference is syntax. 
+            </small>
+            <pre><code data-trim data-noescape class="fragment">
+              @* C# Razor Syntax *@
+              <h2>@model.Title</h2>
+              
+              # Rails View Syntax
+              <h2><%= @model.title %></h2>
+            </code></pre>
+					</section>
+				</section>
+				<section>
+          <h3>Testing and RSpec</h3>
+					<section>
+            <small class="fragment">
+              There are a number of testing frameworks such as minitest, test-unit (similar to xunit), and cucumber. The one I'm most familar with (because this is what they use at my client) is rspec.
+            </small>
+          </section>
+					<section>
+            <h4>The <code>describe</code> block</h4>
+            <small class="fragment">
+              The <code>describe</code> block quite literally describes the piece of code you are testing.
+            </small>
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <small>Usually you'll start with a <code>describe</code> block for your class</small>
+                <pre><code data-trim data-noescape>
+                  describe MyModule::MyClass do
+                    # Test Code
+                  end
+                </code></pre>
+              </div>
+              <div class="fragment fade-in">
+                <small>Then you'll add <code>describe</code> blocks for your methods inside of the main <code>describe</code> block</small>
+                <pre><code data-trim data-noescape>
+                  describe MyModule::MyClass do
+                    describe '#my_method' do
+                      # test code for my method
+                    end
+                  end
+                </code></pre>
+              </div>
+            </div>
+					</section>
+					<section>
+            <h4>The <code>context</code> block</h4>
+            
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <small>The <code>context</code> block then allows you to specify a scenario for your test</small>
+                <small>These need to start with a keyword like <code>when</code></small>
+                <pre><code data-trim data-noescape>
+                  describe MyModule::MyClass do
+                    describe '#my_method' do
+                      context 'when my_parameter is set to 2' do
+                        # test code for the context
+                      end
+                    end
+                  end
+                </code></pre>
+              </div>
+              <div class="fragment fade-in">
+                <small>You can add as many <code>context</code> blocks as you'd like</small>
+                <pre><code data-trim data-noescape>
+                  describe MyModule::MyClass do
+                    describe '#my_method' do
+                      context 'when my_parameter is set to 2' do
+                        # test code for the context
+                      end
+
+                      context 'when my_parameter is set to 8' do
+                        # test code for the context
+                      end
+
+                      context 'when my_parameter is set to 9' do
+                        # test code for the context
+                      end
+                    end
+                  end
+                </code></pre>
+              </div>
+            </div>
+					</section>
+					<section>
+            <h4>The <code>it</code> block</h4>
+            <small class="fragment">
+              The <code>it</code> block then sets up the expectation for the method
+            </small>
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <small>These also need to start with a keyword like <code>returns</code></small>
+                <pre><code data-trim data-noescape>
+                  describe MyModule::MyClass do
+                    describe '#my_method' do
+                      context 'when my_parameter is set to 2' do
+                        it 'returns 4' do
+                          expect(described_class.my_method(2)).to eq(4)
+                        end
+                      end
+                    end
+                  end
+                </code></pre>
+              </div>
+            </div>
+          
+          </section>
+          <section>
+            <h4>Defining your test data with the <code>let</code> method</h4>
+            <div class="r-stack">
+              <div class="fragment fade-in-then-out">
+                <small><code>let</code> allows you to set a global block that you can use to help define your test objects</small>
+                <pre><code data-trim data-noescape>
+                  let(:my_big_test_data) do
+                    {
+                      property_1: 'Hardcoded',
+                      property_2: my_test_data,
+                    }
+                  end
+                  let(:my_test_data) { 'some value' }
+                </code></pre>
+              </div>
+              <div class="fragment fade-in">
+                <small>You can use a subsequent <code>let</code> on the same symbol to change your data downstream without having to re-declare anything that references it</small>
+                <pre><code data-trim data-noescape>
+                  let(:my_big_test_data) do
+                    {
+                      property_1: 'Hardcoded',
+                      property_2: my_test_data,
+                    }
+                  end
+                  let(:my_test_data) { 'some value' }
+                  context 'when this happens' do
+                    it 'returns some value' do
+                      expect(described_class.my_method(my_big_test_data)).to eq('some value')
+                    end
+                  end
+
+                  context 'when that happens' do
+                    let(:my_test_data) { 'some other value'}
+                    it 'returns some other value' do
+                      expect(described_class.my_method(my_big_test_data)).to eq('some other value')
+                    end
+                  end
+                </code></pre>
+              </div>
+            </div>
+					</section>
+          <section>
+            <h4>Mocking methods with the <code>allow</code> method</h4>
+            <small class="fragment"><code>allow</code> is similar to setting up a C# interface to return something using the <code>Moq</code> framework.</small>
+            <div class="fragment">
+              <pre><code data-trim data-noescape>
+                allow(MyMockedClass)
+                  .to receive(:my_method_name)
+                  .with(my_parameter)
+                  .and_return(my_result)
+              </code></pre>
+            </div>
+					</section>
+				</section>
+				<section>
+          <h3>Wrapping Up</h3>
+          <section>
+            <h4>References</h4>
+            <p>
+              <ul>
+                <li><a href="https://rubyonrails.org/doctrine/">The Rails Doctrine</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Omakase">Wikipedia: Omakase</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Monkey_patch">Wikipedia: Monkey Patch</a></li>
+                <li><a href="https://www.rubyguides.com/2018/02/ruby-symbols/">Ruby Guides (Symbols)</a></li>
+              </ul>
+            </p>
+          </section>
+          <section>
+            <h4>Special Thanks</h4>
+            <ul>
+              <li>Zack Lowery for creating the presentation framework and sharing it with me</li>
+              <li>Terry Welsh for reviewing the presentation and providing some much needed feedback</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Questions</h4>
+            <p>
+              I'll now try to take and answer any questions you might have. Although remember: I'm not an expert!
+            </p>
+          </section>
+				</section>
 			</div>
 		</div>
 
