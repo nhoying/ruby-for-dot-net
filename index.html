@@ -909,7 +909,7 @@
               public IActionResult<SomeModel> Show(int id)
               {
                 model = GetModel(id);
-                return View();
+                return View(model);
               }
               
               # Ruby on Rails
